@@ -44,8 +44,8 @@ code_challenge = hashlib.sha256(code_verifier.encode("utf-8")).digest()
 code_challenge = base64.urlsafe_b64encode(code_challenge).decode("utf-8")
 code_challenge = code_challenge.replace("=", "")
 
-@app.schedule(schedule="0 */3 * * *", arg_name="myTimer", run_on_startup=True,
-              use_monitor=False) 
+@app.schedule(schedule="0 0 */3 * * *", arg_name="myTimer", run_on_startup=True,
+              use_monitor=False)
 def twitter_automation(myTimer: func.TimerRequest) -> None:
     if myTimer.past_due:
         logging.info('The timer is past due!')
@@ -122,10 +122,14 @@ def callGPT():
     print(tweetResponse.choices[0].message.content)
     return tweetResponse.choices[0].message.content
 
+def getLanguage():
+    language = ['english', 'hindi']
+    return random.choice(language)
+
 def getEmotion():
     emotion = ['happy', 'sad', 'funny', 'excited', 'lazy', 'anxiety', 'suprise']
     return random.choice(emotion)
 
 def getTopic():
-    topics = ['books', 'technology', 'movies', 'hollywood', 'tv shows', 'cartoons', 'games', 'life', 'socrates', 'philosophy', 'songs', 'art', 'artist', 'jokes']
+    topics = ['valorant', 'books', 'technology', 'movies', 'hollywood', 'tv shows', 'cartoons', 'games', 'life', 'socrates', 'philosophy', 'songs', 'art', 'artist', 'jokes']
     return random.choice(topics)
