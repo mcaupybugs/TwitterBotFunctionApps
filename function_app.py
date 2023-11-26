@@ -44,7 +44,7 @@ code_challenge = hashlib.sha256(code_verifier.encode("utf-8")).digest()
 code_challenge = base64.urlsafe_b64encode(code_challenge).decode("utf-8")
 code_challenge = code_challenge.replace("=", "")
 
-@app.schedule(schedule="*/1 * * * *", arg_name="myTimer", run_on_startup=True,
+@app.schedule(schedule="0 */3 * * *", arg_name="myTimer", run_on_startup=True,
               use_monitor=False) 
 def twitter_automation(myTimer: func.TimerRequest) -> None:
     if myTimer.past_due:
